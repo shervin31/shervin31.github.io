@@ -1,33 +1,33 @@
 (() => {
   'use strict';
 
-  const order = ['home','about','experience','projects','hackathons','beyond','contact'];
+  const order = ['home', 'about', 'experience', 'projects', 'hackathons', 'beyond', 'contact'];
 
   function switchTo(targetId) {
-    document.querySelectorAll('.view').forEach(v => {
+    document.querySelectorAll('.view').forEach(function(v) {
       if (v.id === targetId) v.classList.add('active');
       else v.classList.remove('active');
     });
-    document.querySelectorAll('.tab').forEach(btn => {
+    document.querySelectorAll('.tab').forEach(function(btn) {
       if (btn.dataset.target === targetId) btn.classList.add('active');
       else btn.classList.remove('active');
     });
   }
 
-  document.addEventListener('click', (e) => {
-    const trigger = e.target.closest('[data-target]');
+  document.addEventListener('click', function(e) {
+    var trigger = e.target.closest('[data-target]');
     if (trigger) {
       e.preventDefault();
-      const target = trigger.dataset.target;
+      var target = trigger.dataset.target;
       if (target) switchTo(target);
     }
   });
 
-  document.addEventListener('keydown', (e) => {
+  document.addEventListener('keydown', function(e) {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-    const current = document.querySelector('.view.active')?.id;
+    var current = document.querySelector('.view.active');
     if (!current) return;
-    const i = order.indexOf(current);
+    var i = order.indexOf(current.id);
     if (e.key === 'ArrowRight' && i < order.length - 1) switchTo(order[i + 1]);
     if (e.key === 'ArrowLeft' && i > 0) switchTo(order[i - 1]);
   });
