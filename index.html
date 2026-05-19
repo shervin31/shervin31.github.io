@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shervin Zare</title>
-  <meta name="description" content="Shervin Zare — Data Science student at Wilfrid Laurier University." />
+  <meta name="description" content="Shervin Zare. Data Science student at Wilfrid Laurier University." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,28 +14,18 @@
 </head>
 <body>
 
-  <!-- NAV -->
-  <header class="nav">
+  <!-- TOP BAR (logo only) -->
+  <header class="topbar">
     <a href="#" class="logo" data-target="home">
       <span>SZ</span>
     </a>
-    <nav class="nav-buttons" aria-label="Primary">
-      <button class="nav-btn active" data-target="home">Home</button>
-      <button class="nav-btn" data-target="about">About</button>
-      <button class="nav-btn" data-target="experience">Experience</button>
-      <button class="nav-btn" data-target="projects">Projects</button>
-      <button class="nav-btn" data-target="awards">Awards</button>
-      <button class="nav-btn" data-target="beyond">Off the Clock</button>
-      <button class="nav-btn" data-target="contact">Contact</button>
-    </nav>
   </header>
 
-  <!-- STAGE: only one view visible at a time -->
+  <!-- STAGE -->
   <main class="stage">
 
-    <!-- 01 — HOME -->
+    <!-- 01 HOME -->
     <section class="view active" id="home">
-      <div class="watermark">01</div>
       <div class="home-grid">
         <div class="home-content">
           <span class="kicker">Toronto, Canada</span>
@@ -43,7 +33,7 @@
             Shervin<br/><span class="accent">Zare<span class="period">.</span></span>
           </h1>
           <p class="home-tagline">
-            Data Science student at Wilfrid Laurier University. Interested in all things AI, ML, and analytics.
+            Data Science student at Wilfrid Laurier University. Curious about all things AI, ML, and analytics.
           </p>
           <p class="home-sub">Currently a Student Data Scientist at Sun Life.</p>
         </div>
@@ -55,28 +45,28 @@
       </div>
     </section>
 
-    <!-- 02 — ABOUT -->
+    <!-- 02 ABOUT -->
     <section class="view" id="about">
-      <div class="watermark">02</div>
       <div class="view-header">
         <span class="view-num">02 / About</span>
-        <h2 class="view-title">A little <span class="accent">about me</span></h2>
+        <h2 class="view-title">A bit about <span class="accent">me</span></h2>
       </div>
       <div class="about-layout">
         <figure class="frame about-photo">
-          <img src="images/about-photo.jpg" alt="Photo of Shervin" onerror="this.parentElement.classList.add('empty')" />
+          <img src="images/about-soccer.jpg" alt="Playing soccer" onerror="this.parentElement.classList.add('empty')" />
         </figure>
         <div class="about-text">
-          <p class="lead">Iranian-Canadian. Born curious, raised at family dinners where I've explained "what is data science?" more times than I can count.</p>
-          <p>I study Data Science at <strong>Wilfrid Laurier University</strong>, and right now I'm at <strong>Sun Life</strong> as a Student Data Scientist. I'm into AI, ML, and analytics — the kind of work that turns raw numbers into real decisions.</p>
-          <p>Outside the laptop, you'll catch me at hackathons, watching soccer, or being staff to my cat.</p>
+          <p class="lead">Iranian Canadian. Toronto kid.</p>
+          <p>I grew up obsessed with soccer. For most of my life I wanted to play professionally, and I got pretty close. In 2023, my team won the U18 Ontario Cup. <a href="YOUTUBE_LINK_HERE" target="_blank" rel="noopener" class="inline-link">You can watch the full game here</a> if you're curious.</p>
+          <p>Going pro didn't end up working out the way I hoped, but the love for the game never went anywhere.</p>
+          <p>I study Data Science at Wilfrid Laurier University.</p>
+          <p>Off the laptop, you'll usually catch me eating Persian food. Ghormeh sabzi is the answer to most questions. If you haven't tried it, you should.</p>
         </div>
       </div>
     </section>
 
-    <!-- 03 — EXPERIENCE -->
+    <!-- 03 EXPERIENCE -->
     <section class="view" id="experience">
-      <div class="watermark">03</div>
       <div class="view-header">
         <span class="view-num">03 / Experience</span>
         <h2 class="view-title">Where I've <span class="accent">worked</span></h2>
@@ -89,8 +79,8 @@
           </div>
           <h3 class="exp-role">Student, Data Scientist</h3>
           <p class="exp-company">Sun Life</p>
-          <p class="exp-meta">May 2026 — Present · Toronto, ON</p>
-          <p class="exp-notes">Add a sentence or two about what you're working on here.</p>
+          <p class="exp-meta">May 2026 → Present · Toronto, ON</p>
+          <p class="exp-notes">Add a sentence or two about what you're working on at Sun Life here.</p>
         </article>
 
         <article class="exp-card">
@@ -99,16 +89,15 @@
           </div>
           <h3 class="exp-role">Data Analyst Intern</h3>
           <p class="exp-company">Union Dome</p>
-          <p class="exp-meta">May 2025 — Sep 2025 · Toronto, ON</p>
-          <p class="exp-notes">Add a sentence or two about what you did here.</p>
+          <p class="exp-meta">May 2025 → Sep 2025 · Toronto, ON</p>
+          <p class="exp-notes">Add a sentence or two about what you did at Union Dome here.</p>
         </article>
 
       </div>
     </section>
 
-    <!-- 04 — PROJECTS -->
+    <!-- 04 PROJECTS -->
     <section class="view" id="projects">
-      <div class="watermark">04</div>
       <div class="view-header">
         <span class="view-num">04 / Projects</span>
         <h2 class="view-title">Things I've <span class="accent">built</span></h2>
@@ -121,7 +110,7 @@
           </figure>
           <span class="proj-tag">Graph ML</span>
           <h3>NetTrace</h3>
-          <p>Graph-based fraud detection system using Graph Neural Networks to identify coordinated high-risk accounts.</p>
+          <p>A fraud detection system that looks at how money moves across networks of accounts. Catches coordinated activity that single transaction models miss.</p>
           <a href="https://github.com/shervin31/NetTrace" target="_blank" rel="noopener">View on GitHub →</a>
         </article>
 
@@ -131,7 +120,7 @@
           </figure>
           <span class="proj-tag">ML Pipeline</span>
           <h3>Customer Conversion Predictor</h3>
-          <p>End-to-end XGBoost pipeline for term deposit subscriptions. 82.8% accuracy, 90.4% ROC-AUC.</p>
+          <p>A full XGBoost pipeline that predicts term deposit subscriptions. Hits 82.8% accuracy and 90.4% ROC AUC.</p>
           <a href="https://github.com/shervin31/Customer-Conversion-Predictor" target="_blank" rel="noopener">View on GitHub →</a>
         </article>
 
@@ -140,17 +129,16 @@
             <img src="images/projects/rag-chatbot.jpg" alt="" onerror="this.parentElement.classList.add('empty')" />
           </figure>
           <span class="proj-tag">LLMs / RAG</span>
-          <h3>RAG-Powered Chatbot</h3>
-          <p>Document Q&amp;A using LangChain, OpenAI, and HuggingFace embeddings with full source transparency.</p>
+          <h3>RAG Chatbot</h3>
+          <p>Document Q&amp;A using LangChain, OpenAI, and HuggingFace embeddings. Shows the source context behind every answer.</p>
           <a href="https://github.com/shervin31/RAG-Powered-Chatbot" target="_blank" rel="noopener">View on GitHub →</a>
         </article>
 
       </div>
     </section>
 
-    <!-- 05 — AWARDS & HACKATHONS -->
+    <!-- 05 AWARDS -->
     <section class="view" id="awards">
-      <div class="watermark">05</div>
       <div class="view-header">
         <span class="view-num">05 / Awards &amp; Hackathons</span>
         <h2 class="view-title">A few <span class="accent">wins</span></h2>
@@ -159,13 +147,13 @@
 
         <article class="award-card">
           <figure class="frame award-photo">
-            <img src="images/awards/data-minds.jpg" alt="" onerror="this.parentElement.classList.add('empty')" />
+            <img src="images/awards/biggest-comeback.jpg" alt="" onerror="this.parentElement.classList.add('empty')" />
           </figure>
           <div class="award-info">
             <span class="award-trophy">🏆 Biggest Comeback</span>
             <h3>Data Minds Challenge</h3>
             <p class="award-event">Laurier Analytics Society · Sun Life</p>
-            <p>Built NetTrace under pressure. Walked into finals with zero expectations — walked out with the win.</p>
+            <p>Built NetTrace under pressure. Walked into finals with zero expectations and walked out with the win.</p>
           </div>
         </article>
 
@@ -176,7 +164,7 @@
           <div class="award-info">
             <span class="award-trophy">⭐ Top 8 of 300+ Teams</span>
             <h3>Hack Canada</h3>
-            <p class="award-event">36-hour Hackathon · 800+ Hackers</p>
+            <p class="award-event">36 hour Hackathon · 800+ Hackers</p>
             <p>Built YUTH, a platform helping young Canadians navigate taxes, benefits, and education.</p>
           </div>
         </article>
@@ -184,9 +172,8 @@
       </div>
     </section>
 
-    <!-- 06 — OFF THE CLOCK -->
+    <!-- 06 OFF THE CLOCK -->
     <section class="view" id="beyond">
-      <div class="watermark">06</div>
       <div class="view-header">
         <span class="view-num">06 / Off the Clock</span>
         <h2 class="view-title">When I'm <span class="accent">not coding</span></h2>
@@ -201,7 +188,7 @@
           <div class="beyond-item">
             <span class="icon">⚽</span>
             <h3>Soccer</h3>
-            <p>Strictly a fan, strictly from the couch.</p>
+            <p>Strictly a fan now, strictly from the couch.</p>
           </div>
           <div class="beyond-item">
             <span class="icon">🐱</span>
@@ -222,9 +209,8 @@
       </div>
     </section>
 
-    <!-- 07 — CONTACT -->
+    <!-- 07 CONTACT -->
     <section class="view" id="contact">
-      <div class="watermark">07</div>
       <div class="contact-inner">
         <span class="view-num">07 / Contact</span>
         <h2 class="contact-title">Let's <span class="accent">talk</span>.</h2>
@@ -240,6 +226,17 @@
     </section>
 
   </main>
+
+  <!-- BOTTOM TAB BAR -->
+  <nav class="tabbar" aria-label="Sections">
+    <button class="tab active" data-target="home">Home</button>
+    <button class="tab" data-target="about">About</button>
+    <button class="tab" data-target="experience">Experience</button>
+    <button class="tab" data-target="projects">Projects</button>
+    <button class="tab" data-target="awards">Awards</button>
+    <button class="tab" data-target="beyond">Off the Clock</button>
+    <button class="tab" data-target="contact">Contact</button>
+  </nav>
 
   <script src="script.js"></script>
 </body>
