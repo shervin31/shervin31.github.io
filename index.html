@@ -14,7 +14,7 @@
 </head>
 <body>
 
-  <!-- TOP BAR (logo only) -->
+  <!-- TOP BAR -->
   <header class="topbar">
     <a href="#" class="logo" data-target="home">
       <span>SZ</span>
@@ -57,7 +57,7 @@
         </figure>
         <div class="about-text">
           <p class="lead">Iranian Canadian. Toronto kid.</p>
-          <p>I grew up obsessed with soccer. For most of my life I wanted to play professionally, and I got pretty close. In 2023, my team won the U18 Ontario Cup. <a href="YOUTUBE_LINK_HERE" target="_blank" rel="noopener" class="inline-link">You can watch the full game here</a> if you're curious.</p>
+          <p>I grew up obsessed with soccer. For most of my life I wanted to play professionally, and I got pretty close. In 2023, my team won the U18 Ontario Cup. <a href="https://www.youtube.com/watch?v=MBKWG-mtpjo&t=2190s" target="_blank" rel="noopener" class="inline-link">You can watch the full game here</a> if you're curious.</p>
           <p>Going pro didn't end up working out the way I hoped, but the love for the game never went anywhere.</p>
           <p>I study Data Science at Wilfrid Laurier University.</p>
           <p>Off the laptop, you'll usually catch me eating Persian food. Ghormeh sabzi is the answer to most questions. If you haven't tried it, you should.</p>
@@ -97,60 +97,106 @@
     </section>
 
     <!-- 04 SKILLS -->
-<section class="view" id="skills">
-  <div class="view-header">
-    <span class="view-num">04 / Skills</span>
-    <h2 class="view-title">What I <span class="accent">know</span></h2>
-  </div>
-  <div class="skills-grid">
-    <div class="skill-card">
-      <span class="skill-cat">Languages</span>
-      <ul class="skill-list">
-        <li>Python</li>
-        <li>SQL</li>
-        <li>R</li>
-        <li>JavaScript</li>
-      </ul>
-    </div>
-    <div class="skill-card">
-      <span class="skill-cat">Machine Learning &amp; AI</span>
-      <ul class="skill-list">
-        <li>scikit-learn</li>
-        <li>XGBoost</li>
-        <li>PyTorch</li>
-        <li>PyTorch Geometric</li>
-        <li>LangChain</li>
-        <li>HuggingFace</li>
-      </ul>
-    </div>
-    <div class="skill-card">
-      <span class="skill-cat">Data &amp; Visualization</span>
-      <ul class="skill-list">
-        <li>pandas</li>
-        <li>NumPy</li>
-        <li>matplotlib</li>
-        <li>seaborn</li>
-        <li>plotly</li>
-        <li>Excel</li>
-      </ul>
-    </div>
-    <div class="skill-card">
-      <span class="skill-cat">Tools</span>
-      <ul class="skill-list">
-        <li>Git &amp; GitHub</li>
-        <li>Jupyter</li>
-        <li>Streamlit</li>
-        <li>VS Code</li>
-        <li>Linux / Bash</li>
-      </ul>
-    </div>
-  </div>
-</section>
+    <section class="view" id="skills">
+      <div class="view-header">
+        <span class="view-num">04 / Skills</span>
+        <h2 class="view-title">What I <span class="accent">know</span></h2>
+      </div>
+      <div class="skills-grid">
 
-    <!-- 05 AWARDS -->
+        <div class="skill-card">
+          <span class="skill-cat">Languages</span>
+          <ul class="skill-list">
+            <li>Python</li>
+            <li>SQL</li>
+            <li>R</li>
+            <li>JavaScript</li>
+          </ul>
+        </div>
+
+        <div class="skill-card">
+          <span class="skill-cat">Machine Learning &amp; AI</span>
+          <ul class="skill-list">
+            <li>scikit-learn</li>
+            <li>XGBoost</li>
+            <li>PyTorch</li>
+            <li>PyTorch Geometric</li>
+            <li>LangChain</li>
+            <li>HuggingFace</li>
+          </ul>
+        </div>
+
+        <div class="skill-card">
+          <span class="skill-cat">Data &amp; Visualization</span>
+          <ul class="skill-list">
+            <li>pandas</li>
+            <li>NumPy</li>
+            <li>matplotlib</li>
+            <li>seaborn</li>
+            <li>plotly</li>
+            <li>Excel</li>
+          </ul>
+        </div>
+
+        <div class="skill-card">
+          <span class="skill-cat">Tools</span>
+          <ul class="skill-list">
+            <li>Git &amp; GitHub</li>
+            <li>Jupyter</li>
+            <li>Streamlit</li>
+            <li>VS Code</li>
+            <li>Linux / Bash</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 05 PROJECTS -->
+    <section class="view" id="projects">
+      <div class="view-header">
+        <span class="view-num">05 / Projects</span>
+        <h2 class="view-title">Things I've <span class="accent">built</span></h2>
+      </div>
+      <div class="proj-grid">
+
+        <article class="proj-card">
+          <figure class="frame proj-media">
+            <img src="images/projects/nettrace.jpg" alt="" onerror="this.parentElement.classList.add('empty')" />
+          </figure>
+          <span class="proj-tag">Graph ML</span>
+          <h3>NetTrace</h3>
+          <p>A fraud detection system that looks at how money moves across networks of accounts. Catches coordinated activity that single transaction models miss.</p>
+          <a href="https://github.com/shervin31/NetTrace" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+
+        <article class="proj-card">
+          <figure class="frame proj-media">
+            <img src="images/projects/customer-conversion.jpg" alt="" onerror="this.parentElement.classList.add('empty')" />
+          </figure>
+          <span class="proj-tag">ML Pipeline</span>
+          <h3>Customer Conversion Predictor</h3>
+          <p>A full XGBoost pipeline that predicts term deposit subscriptions. Hits 82.8% accuracy and 90.4% ROC AUC.</p>
+          <a href="https://github.com/shervin31/Customer-Conversion-Predictor" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+
+        <article class="proj-card">
+          <figure class="frame proj-media">
+            <img src="images/projects/rag-chatbot.jpg" alt="" onerror="this.parentElement.classList.add('empty')" />
+          </figure>
+          <span class="proj-tag">LLMs / RAG</span>
+          <h3>RAG Chatbot</h3>
+          <p>Document Q&amp;A using LangChain, OpenAI, and HuggingFace embeddings. Shows the source context behind every answer.</p>
+          <a href="https://github.com/shervin31/RAG-Powered-Chatbot" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- 06 AWARDS -->
     <section class="view" id="awards">
       <div class="view-header">
-        <span class="view-num">05 / Awards &amp; Hackathons</span>
+        <span class="view-num">06 / Awards &amp; Hackathons</span>
         <h2 class="view-title">A few <span class="accent">wins</span></h2>
       </div>
       <div class="awards-grid">
@@ -182,10 +228,10 @@
       </div>
     </section>
 
-    <!-- 06 OFF THE CLOCK -->
+    <!-- 07 OFF THE CLOCK -->
     <section class="view" id="beyond">
       <div class="view-header">
-        <span class="view-num">06 / Off the Clock</span>
+        <span class="view-num">07 / Off the Clock</span>
         <h2 class="view-title">When I'm <span class="accent">not coding</span></h2>
       </div>
       <div class="beyond-layout">
@@ -219,10 +265,10 @@
       </div>
     </section>
 
-    <!-- 07 CONTACT -->
+    <!-- 08 CONTACT -->
     <section class="view" id="contact">
       <div class="contact-inner">
-        <span class="view-num">07 / Contact</span>
+        <span class="view-num">08 / Contact</span>
         <h2 class="contact-title">Let's <span class="accent">talk</span>.</h2>
         <p class="contact-sub">Always up for a conversation about ML, analytics, soccer, or where to go on your next trip.</p>
         <a href="mailto:shervin.zare2005@gmail.com" class="contact-email">shervin.zare2005@gmail.com</a>
@@ -237,16 +283,17 @@
 
   </main>
 
-<nav class="tabbar" aria-label="Sections">
-  <button class="tab active" data-target="home">Home</button>
-  <button class="tab" data-target="about">About</button>
-  <button class="tab" data-target="experience">Experience</button>
-  <button class="tab" data-target="skills">Skills</button>
-  <button class="tab" data-target="projects">Projects</button>
-  <button class="tab" data-target="awards">Awards</button>
-  <button class="tab" data-target="beyond">Off the Clock</button>
-  <button class="tab" data-target="contact">Contact</button>
-</nav>
+  <!-- BOTTOM TAB BAR -->
+  <nav class="tabbar" aria-label="Sections">
+    <button class="tab active" data-target="home">Home</button>
+    <button class="tab" data-target="about">About</button>
+    <button class="tab" data-target="experience">Experience</button>
+    <button class="tab" data-target="skills">Skills</button>
+    <button class="tab" data-target="projects">Projects</button>
+    <button class="tab" data-target="awards">Awards</button>
+    <button class="tab" data-target="beyond">Off the Clock</button>
+    <button class="tab" data-target="contact">Contact</button>
+  </nav>
 
   <script src="script.js"></script>
 </body>
