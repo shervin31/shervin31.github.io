@@ -20,7 +20,7 @@
   });
 
   // Keyboard navigation: arrow keys to move between sections
-  const order = ['home', 'about', 'experience', 'projects', 'awards', 'beyond', 'contact'];
+  const order = ['home', 'about', 'experience', 'skills', 'projects', 'awards', 'beyond', 'contact'];
   document.addEventListener('keydown', (e) => {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
     const current = document.querySelector('.view.active')?.id;
