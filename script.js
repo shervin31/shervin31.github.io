@@ -1,22 +1,19 @@
 (() => {
   'use strict';
 
-  const order = ['home', 'about', 'experience', 'projects', 'hackathons', 'beyond', 'contact'];
+  const order = ['home','about','experience','projects','hackathons','beyond','contact'];
 
   function switchTo(targetId) {
-    // Update views
     document.querySelectorAll('.view').forEach(v => {
       if (v.id === targetId) v.classList.add('active');
       else v.classList.remove('active');
     });
-    // Update tab bar highlight
     document.querySelectorAll('.tab').forEach(btn => {
       if (btn.dataset.target === targetId) btn.classList.add('active');
       else btn.classList.remove('active');
     });
   }
 
-  // Event delegation: catches all clicks on any [data-target] element
   document.addEventListener('click', (e) => {
     const trigger = e.target.closest('[data-target]');
     if (trigger) {
@@ -26,7 +23,6 @@
     }
   });
 
-  // Keyboard navigation
   document.addEventListener('keydown', (e) => {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
     const current = document.querySelector('.view.active')?.id;
