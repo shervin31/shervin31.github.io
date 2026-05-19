@@ -6,7 +6,7 @@
 
   function switchTo(targetId) {
     views.forEach(v => v.classList.toggle('active', v.id === targetId));
-    document.querySelectorAll('.nav-btn').forEach(btn => {
+    document.querySelectorAll('.tab').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.target === targetId);
     });
   }
@@ -19,7 +19,7 @@
     });
   });
 
-  // Keyboard navigation: arrow keys to move between sections
+  // Arrow key navigation between sections
   const order = ['home', 'about', 'experience', 'skills', 'projects', 'awards', 'beyond', 'contact'];
   document.addEventListener('keydown', (e) => {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
