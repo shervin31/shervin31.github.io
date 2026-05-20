@@ -9,7 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; overflow: hidden; }
     img { max-width: 100%; height: auto; display: block; }
     a { color: inherit; text-decoration: none; }
     ul { list-style: none; }
@@ -24,61 +23,61 @@
       --fg-dim: #4D5C85;
       --accent: #2563EB;
       --accent-bright: #4F8FFF;
-      --accent-glow: rgba(79, 143, 255, 0.35);
+      --accent-glow: rgba(79,143,255,0.35);
       --border: #1A2A4F;
       --border-light: #243665;
       --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
       --font-body: 'Geist', system-ui, sans-serif;
       --font-mono: 'Geist Mono', ui-monospace, monospace;
-      --gutter: clamp(2rem, 5vw, 5rem);
-      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease: cubic-bezier(0.22,1,0.36,1);
+      --topbar-h: 65px;
+      --tab-h: 80px;
     }
 
-    body {
+    html, body {
+      width: 100%;
       background: var(--bg);
       color: var(--fg);
       font-family: var(--font-body);
-      font-size: 1rem;
-      line-height: 1.55;
-      display: flex;
-      flex-direction: column;
       -webkit-font-smoothing: antialiased;
     }
+
     body::before {
       content: '';
       position: fixed;
-      top: -20%; right: -15%;
-      width: 70vw; height: 70vw;
-      background: radial-gradient(circle, rgba(37,99,235,0.10) 0%, transparent 60%);
+      top: -20%; right: -10%;
+      width: 60vw; height: 60vw;
+      background: radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 65%);
       pointer-events: none;
       z-index: 0;
     }
     body::after {
       content: '';
       position: fixed;
-      bottom: -25%; left: -15%;
-      width: 60vw; height: 60vw;
-      background: radial-gradient(circle, rgba(79,143,255,0.06) 0%, transparent 65%);
+      bottom: -20%; left: -10%;
+      width: 55vw; height: 55vw;
+      background: radial-gradient(circle, rgba(79,143,255,0.07) 0%, transparent 65%);
       pointer-events: none;
       z-index: 0;
     }
 
-    /* TOPBAR */
+    /* ── TOPBAR ── */
     .topbar {
-      flex-shrink: 0;
-      padding: 1.25rem var(--gutter);
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--topbar-h);
       display: flex;
       align-items: center;
+      padding: 0 5vw;
       border-bottom: 1px solid var(--border);
-      background: rgba(3,6,15,0.7);
+      background: rgba(3,6,15,0.75);
       backdrop-filter: blur(20px);
-      position: relative;
-      z-index: 10;
+      z-index: 100;
     }
     .logo { font-family: var(--font-display); font-weight: 700; font-size: 1.125rem; }
     .logo span {
       display: inline-block;
-      padding: 0.3rem 0.7rem;
+      padding: 0.3rem 0.75rem;
       border: 1.5px solid var(--accent);
       border-radius: 6px;
       background: rgba(37,99,235,0.08);
@@ -87,21 +86,21 @@
     }
     .logo:hover span { background: var(--accent); color: var(--fg); }
 
-    /* BOTTOM TAB BAR */
+    /* ── TAB BAR ── */
     .tabbar {
       position: fixed;
-      bottom: 1.75rem;
+      bottom: 1.5rem;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
       gap: 0.2rem;
       padding: 0.4rem;
-      background: rgba(8,17,31,0.85);
+      background: rgba(8,17,31,0.88);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       border: 1px solid var(--border-light);
       border-radius: 999px;
-      z-index: 50;
+      z-index: 100;
       box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(37,99,235,0.12);
       max-width: calc(100vw - 2rem);
       overflow-x: auto;
@@ -118,87 +117,76 @@
       white-space: nowrap;
       transition: all 0.3s var(--ease);
     }
-    .tab:hover { color: var(--fg); background: rgba(255,255,255,0.04); }
+    .tab:hover { color: var(--fg); background: rgba(255,255,255,0.05); }
     .tab.active, .tab.active:hover {
       color: var(--fg) !important;
       background: var(--accent) !important;
       box-shadow: 0 0 18px var(--accent-glow);
     }
 
-    /* STAGE */
-    .stage { flex: 1; position: relative; overflow: hidden; z-index: 1; }
-
-    /* VIEW — each section fills the full stage */
+    /* ── VIEWS ── */
     .view {
-      position: absolute;
-      inset: 0;
-      padding: 3rem var(--gutter) 7rem;
-      opacity: 0;
-      transform: translateY(20px);
-      pointer-events: none;
-      transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
-      overflow-y: auto;
-      display: flex;
+      display: none;
       flex-direction: column;
       justify-content: center;
+      min-height: calc(100vh - var(--topbar-h));
+      margin-top: var(--topbar-h);
+      padding: 4rem 5vw calc(var(--tab-h) + 2rem);
+      position: relative;
+      z-index: 1;
     }
-    .view.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .view.active {
+      display: flex;
+      animation: fadeUp 0.4s var(--ease) both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
-    /* SECTION HEADERS */
-    .view-header { margin-bottom: 2.5rem; flex-shrink: 0; }
+    /* ── SECTION HEADERS ── */
+    .view-header { margin-bottom: 3rem; }
     .view-num {
-      display: inline-block;
       font-family: var(--font-mono);
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
-      color: var(--accent-bright);
+      font-size: 0.8rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
+      color: var(--accent-bright);
+      display: block;
       margin-bottom: 0.6rem;
     }
     .view-title {
       font-family: var(--font-display);
       font-weight: 600;
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      line-height: 1.05;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
       letter-spacing: -0.02em;
+      line-height: 1.05;
     }
     .accent { color: var(--accent-bright); }
 
-    /* IMAGE FRAME */
+    /* ── IMAGE FRAME ── */
     .frame {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 12px;
       overflow: hidden;
       position: relative;
     }
     .frame img { width: 100%; height: 100%; object-fit: cover; }
     .frame.empty img { display: none; }
-    .frame.empty {
-      display: flex; align-items: center; justify-content: center;
-      background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-elev) 100%);
-    }
-    .frame.empty::before {
-      content: 'Photo';
-      font-family: var(--font-mono); font-size: 0.7rem;
-      letter-spacing: 0.1em; color: var(--fg-dim); text-transform: uppercase;
-    }
-    .frame.empty::after {
-      content: ''; position: absolute; inset: 0.75rem;
-      border: 1px dashed var(--border-light); border-radius: 4px;
-    }
+    .frame.empty { display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--bg-card), var(--bg-elev)); }
+    .frame.empty::before { content: 'Photo'; font-family: var(--font-mono); font-size: 0.7rem; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.1em; }
+    .frame.empty::after { content: ''; position: absolute; inset: 0.75rem; border: 1px dashed var(--border-light); border-radius: 6px; }
 
-    /* HOME */
+    /* ── HOME ── */
     .home-grid {
       display: grid;
       grid-template-columns: 1.3fr 1fr;
-      gap: clamp(3rem, 6vw, 7rem);
+      gap: clamp(2rem, 6vw, 8rem);
       align-items: center;
       width: 100%;
-      max-width: 1400px;
-      margin: 0 auto;
     }
-    .home-content { display: flex; flex-direction: column; gap: 1.5rem; }
+    .home-content { display: flex; flex-direction: column; gap: 1.75rem; }
     .kicker {
       font-family: var(--font-mono);
       font-size: 0.85rem;
@@ -219,235 +207,163 @@
     .home-title {
       font-family: var(--font-display);
       font-weight: 700;
-      font-size: clamp(5rem, 10vw, 9rem);
-      line-height: 0.92;
+      font-size: clamp(4.5rem, 9vw, 10rem);
+      line-height: 0.93;
       letter-spacing: -0.04em;
     }
     .home-title .period { color: var(--accent); }
-    .home-tagline {
-      font-size: clamp(1.1rem, 1.6vw, 1.35rem);
-      color: var(--fg-muted);
-      max-width: 40ch;
-      line-height: 1.6;
-    }
-    .home-sub {
-      font-family: var(--font-mono);
-      font-size: 0.9rem;
-      color: var(--fg-dim);
-    }
-    .home-portrait { display: flex; justify-content: flex-end; }
+    .home-tagline { font-size: clamp(1.1rem, 1.8vw, 1.4rem); color: var(--fg-muted); max-width: 38ch; line-height: 1.65; }
+    .home-sub { font-family: var(--font-mono); font-size: 0.9rem; color: var(--fg-dim); }
+    .home-portrait { display: flex; justify-content: center; }
     .home-portrait .frame {
       width: 100%;
       max-width: 460px;
       aspect-ratio: 4 / 5;
-      box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 60px rgba(37,99,235,0.12);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.55), 0 0 60px rgba(37,99,235,0.12);
     }
 
-    /* ABOUT */
+    /* ── ABOUT ── */
     .about-layout {
       display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: clamp(3rem, 5vw, 6rem);
+      grid-template-columns: 1fr 2.2fr;
+      gap: clamp(2.5rem, 5vw, 7rem);
       align-items: center;
       width: 100%;
-      max-width: 1400px;
-      margin: 0 auto;
     }
-    .about-photo { width: 100%; max-width: 360px; aspect-ratio: 3 / 4; }
-    .about-text { max-width: 60ch; }
-    .about-text p {
-      color: var(--fg);
-      font-size: clamp(1.05rem, 1.4vw, 1.25rem);
-      line-height: 1.8;
-      font-weight: 300;
-    }
-    .inline-link {
-      color: var(--accent-bright);
-      border-bottom: 1px solid var(--accent);
-      transition: all 0.3s var(--ease);
-    }
+    .about-photo { width: 100%; max-width: 380px; aspect-ratio: 3 / 4; }
+    .about-text { max-width: 62ch; }
+    .about-text p { color: var(--fg); font-size: clamp(1.1rem, 1.6vw, 1.3rem); line-height: 1.8; font-weight: 300; }
+    .inline-link { color: var(--accent-bright); border-bottom: 1px solid var(--accent); transition: all 0.3s var(--ease); }
     .inline-link:hover { color: var(--fg); border-bottom-color: var(--fg); }
 
-    /* EXPERIENCE */
-    .exp-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      width: 100%;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
+    /* ── EXPERIENCE ── */
+    .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; width: 100%; }
     .exp-card {
       padding: 2.5rem;
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
+      border-radius: 14px;
+      display: flex; flex-direction: column; gap: 0.6rem;
       transition: all 0.3s var(--ease);
-      position: relative;
-      overflow: hidden;
+      position: relative; overflow: hidden;
     }
     .exp-card::before {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(circle at top right, rgba(37,99,235,0.08), transparent 60%);
-      opacity: 0;
-      transition: opacity 0.4s var(--ease);
+      background: radial-gradient(circle at top right, rgba(37,99,235,0.09), transparent 65%);
+      opacity: 0; transition: opacity 0.4s var(--ease);
     }
-    .exp-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px rgba(37,99,235,0.15); }
+    .exp-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 24px 60px rgba(0,0,0,0.45), 0 0 30px rgba(37,99,235,0.18); }
     .exp-card:hover::before { opacity: 1; }
     .exp-card > * { position: relative; z-index: 1; }
     .exp-logo {
-      width: 90px; height: 90px;
+      width: 88px; height: 88px;
       background: var(--bg-elev);
       border: 1px solid var(--border-light);
       border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
-      overflow: hidden; margin-bottom: 1.25rem;
-      padding: 0.75rem; position: relative;
+      overflow: hidden; margin-bottom: 1.25rem; padding: 0.6rem;
     }
     .exp-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
     .exp-logo.empty img { display: none; }
     .exp-logo.empty::before { content: 'LOGO'; font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.1em; color: var(--fg-dim); }
-    .exp-role { font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; color: var(--fg); }
+    .exp-role { font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; }
     .exp-company { font-size: 1.05rem; color: var(--accent-bright); font-weight: 500; }
-    .exp-meta { font-family: var(--font-mono); font-size: 0.78rem; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
-    .exp-notes { color: var(--fg-muted); font-size: 1rem; line-height: 1.6; padding-top: 1rem; border-top: 1px solid var(--border); margin-top: 0.25rem; }
+    .exp-meta { font-family: var(--font-mono); font-size: 0.78rem; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.4rem; }
+    .exp-notes { color: var(--fg-muted); font-size: 1rem; line-height: 1.65; padding-top: 1rem; border-top: 1px solid var(--border); }
 
-    /* PROJECTS */
-    .proj-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      width: 100%;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
+    /* ── PROJECTS ── */
+    .proj-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.75rem; width: 100%; }
     .proj-card {
-      display: flex; flex-direction: column; gap: 0.85rem;
+      display: flex; flex-direction: column; gap: 0.9rem;
       padding: 1.5rem;
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 14px;
       transition: all 0.3s var(--ease);
     }
-    .proj-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px rgba(37,99,235,0.15); }
-    .proj-media { aspect-ratio: 16 / 10; margin-bottom: 0.25rem; }
-    .proj-tag {
-      font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--accent-bright);
-      padding: 0.3rem 0.7rem;
-      background: rgba(37,99,235,0.12);
-      border: 1px solid var(--accent);
-      border-radius: 999px; align-self: flex-start;
-    }
-    .proj-card h3 { font-family: var(--font-display); font-size: 1.35rem; font-weight: 600; letter-spacing: -0.01em; }
-    .proj-card p { color: var(--fg-muted); font-size: 0.9rem; line-height: 1.6; flex: 1; }
-    .proj-card a { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-bright); margin-top: auto; transition: color 0.3s var(--ease); }
+    .proj-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 24px 60px rgba(0,0,0,0.45), 0 0 30px rgba(37,99,235,0.18); }
+    .proj-media { aspect-ratio: 16 / 10; border-radius: 8px; overflow: hidden; }
+    .proj-tag { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-bright); padding: 0.3rem 0.7rem; background: rgba(37,99,235,0.12); border: 1px solid var(--accent); border-radius: 999px; align-self: flex-start; }
+    .proj-card h3 { font-family: var(--font-display); font-size: 1.35rem; font-weight: 600; }
+    .proj-card p { color: var(--fg-muted); font-size: 0.9rem; line-height: 1.65; flex: 1; }
+    .proj-card a { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-bright); transition: color 0.3s; }
     .proj-card a:hover { color: var(--fg); }
 
-    /* HACKATHONS */
-    .awards-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      width: 100%;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
+    /* ── HACKATHONS ── */
+    .awards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; width: 100%; }
     .award-card {
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 2rem;
+      display: grid; grid-template-columns: 220px 1fr; gap: 2rem;
       padding: 2rem;
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 14px;
       align-items: center;
       transition: all 0.3s var(--ease);
     }
-    .award-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px rgba(37,99,235,0.15); }
+    .award-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 24px 60px rgba(0,0,0,0.45), 0 0 30px rgba(37,99,235,0.18); }
     .award-photo { width: 100%; aspect-ratio: 4 / 5; }
     .award-info { display: flex; flex-direction: column; gap: 0.5rem; }
     .award-trophy { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; color: var(--accent-bright); }
-    .award-card h3 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; letter-spacing: -0.01em; }
-    .award-event { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.05em; color: var(--fg-dim); text-transform: uppercase; margin-bottom: 0.25rem; }
-    .award-info p:last-child { color: var(--fg-muted); font-size: 0.95rem; line-height: 1.6; }
+    .award-card h3 { font-family: var(--font-display); font-size: 1.7rem; font-weight: 600; letter-spacing: -0.01em; }
+    .award-event { font-family: var(--font-mono); font-size: 0.75rem; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem; }
+    .award-info p:last-child { color: var(--fg-muted); font-size: 0.95rem; line-height: 1.65; }
 
-    /* OFF THE CLOCK */
-    .beyond-layout {
-      display: grid;
-      grid-template-columns: 1.3fr 1fr;
-      gap: 2.5rem;
-      width: 100%;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-    .beyond-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    /* ── OFF THE CLOCK ── */
+    .beyond-layout { display: grid; grid-template-columns: 1.3fr 1fr; gap: 3rem; width: 100%; }
+    .beyond-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; align-content: start; }
     .beyond-item {
       padding: 1.5rem;
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 14px;
       transition: all 0.3s var(--ease);
     }
     .beyond-item:hover { border-color: var(--accent); transform: translateY(-3px); }
     .beyond-item .icon { font-size: 1.75rem; display: block; margin-bottom: 0.75rem; }
     .beyond-item h3 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; margin-bottom: 0.4rem; }
-    .beyond-item p { color: var(--fg-muted); font-size: 0.9rem; line-height: 1.55; }
-    .beyond-photos { display: grid; grid-template-rows: repeat(3, 1fr); gap: 0.85rem; }
-    .beyond-photos .frame { width: 100%; }
+    .beyond-item p { color: var(--fg-muted); font-size: 0.9rem; line-height: 1.6; }
+    .beyond-photos { display: grid; grid-template-rows: 1fr 1fr 1fr; gap: 1rem; }
+    .beyond-photos .frame { width: 100%; min-height: 0; }
 
-    /* CONTACT */
+    /* ── CONTACT ── */
     .contact-inner {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
       display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center; gap: 1.5rem;
-      max-width: 800px; margin: 0 auto; width: 100%;
+      align-items: center; text-align: center; gap: 1.5rem;
     }
-    .contact-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(3.5rem, 9vw, 7rem); letter-spacing: -0.03em; line-height: 1; }
-    .contact-sub { font-size: 1.15rem; color: var(--fg-muted); max-width: 44ch; line-height: 1.6; }
+    .contact-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(3.5rem, 9vw, 8rem); letter-spacing: -0.03em; line-height: 1; }
+    .contact-sub { font-size: 1.15rem; color: var(--fg-muted); max-width: 44ch; line-height: 1.65; }
     .contact-email {
       font-family: var(--font-mono); font-size: 1.1rem; color: var(--accent-bright);
-      padding: 1rem 2rem;
-      border: 1px solid var(--accent); border-radius: 999px;
-      background: rgba(37,99,235,0.08); margin-top: 0.5rem;
-      transition: all 0.3s var(--ease);
+      padding: 1rem 2rem; border: 1px solid var(--accent); border-radius: 999px;
+      background: rgba(37,99,235,0.08); transition: all 0.3s var(--ease);
     }
     .contact-email:hover { background: var(--accent); color: var(--fg); transform: translateY(-2px); box-shadow: 0 12px 30px var(--accent-glow); }
-    .contact-links { display: flex; gap: 2rem; margin-top: 0.5rem; flex-wrap: wrap; justify-content: center; }
-    .contact-links a { font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 0.05em; color: var(--fg-muted); transition: color 0.3s var(--ease); }
+    .contact-links { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; }
+    .contact-links a { font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 0.05em; color: var(--fg-muted); transition: color 0.3s; }
     .contact-links a:hover { color: var(--accent-bright); }
 
-    /* RESPONSIVE */
-    @media (max-width: 1024px) {
-      .home-title { font-size: clamp(4rem, 10vw, 7rem); }
-      .awards-grid { grid-template-columns: 1fr; }
-      .award-card { grid-template-columns: 180px 1fr; }
-    }
-    @media (max-width: 768px) {
-      html, body { overflow: auto; height: auto; }
-      .stage { overflow: visible; }
-      .view { position: relative; opacity: 1; transform: none; pointer-events: auto; min-height: 90vh; justify-content: flex-start; padding-top: 2.5rem; }
-      .view:not(.active) { display: none; }
-      .home-grid { grid-template-columns: 1fr; }
-      .home-portrait { justify-content: flex-start; max-width: 280px; }
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .home-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .home-portrait { justify-content: flex-start; }
+      .home-portrait .frame { max-width: 280px; }
       .home-title { font-size: clamp(3.5rem, 15vw, 6rem); }
-      .about-layout { grid-template-columns: 1fr; }
+      .about-layout { grid-template-columns: 1fr; gap: 2rem; }
       .about-photo { max-width: 260px; }
       .exp-grid { grid-template-columns: 1fr; }
       .proj-grid { grid-template-columns: 1fr; }
       .awards-grid { grid-template-columns: 1fr; }
       .award-card { grid-template-columns: 1fr; }
       .beyond-layout { grid-template-columns: 1fr; }
-      .beyond-photos { grid-template-rows: auto; grid-template-columns: 1fr 1fr 1fr; }
-      .tabbar { bottom: 1rem; }
-      .tab { padding: 0.5rem 0.9rem; font-size: 0.72rem; }
+      .beyond-photos { grid-template-rows: auto; grid-template-columns: repeat(3,1fr); }
     }
-    @media (max-width: 500px) {
-      .tab { padding: 0.45rem 0.65rem; font-size: 0.68rem; }
+    @media (max-width: 560px) {
+      .tab { padding: 0.5rem 0.7rem; font-size: 0.7rem; }
+      .view { padding: 3rem 1.25rem calc(var(--tab-h) + 2rem); }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition: none !important; animation: none !important; }
@@ -460,185 +376,188 @@
     <a href="#" class="logo" data-target="home"><span>SZ</span></a>
   </header>
 
-  <main class="stage">
-
-    <section class="view active" id="home">
-      <div class="home-grid">
-        <div class="home-content">
-          <span class="kicker">Toronto, Canada</span>
-          <h1 class="home-title">Shervin<br/><span class="accent">Zare<span class="period">.</span></span></h1>
-          <p class="home-tagline">Data Science student at Wilfrid Laurier University. Curious about all things AI, ML, and analytics.</p>
-          <p class="home-sub">Currently a Student Data Scientist at Sun Life.</p>
-        </div>
-        <div class="home-portrait">
-          <figure class="frame">
-            <img src="images/hero%20portrait.jpeg" alt="Shervin Zare" onerror="this.parentElement.classList.add('empty')" />
-          </figure>
-        </div>
+  <!-- HOME -->
+  <section class="view active" id="home">
+    <div class="home-grid">
+      <div class="home-content">
+        <span class="kicker">Toronto, Canada</span>
+        <h1 class="home-title">Shervin<br/><span class="accent">Zare<span class="period">.</span></span></h1>
+        <p class="home-tagline">Data Science student at Wilfrid Laurier University. Curious about all things AI, ML, and analytics.</p>
+        <p class="home-sub">Currently a Student Data Scientist at Sun Life.</p>
       </div>
-    </section>
-
-    <section class="view" id="about">
-      <div class="view-header">
-        <span class="view-num">02 / About</span>
-        <h2 class="view-title">A bit about <span class="accent">me</span></h2>
-      </div>
-      <div class="about-layout">
-        <figure class="frame about-photo">
-          <img src="images/about%20soccer.jpeg" alt="Playing soccer" onerror="this.parentElement.classList.add('empty')" />
+      <div class="home-portrait">
+        <figure class="frame">
+          <img src="images/hero%20portrait.jpeg" alt="Shervin Zare" onerror="this.parentElement.classList.add('empty')" />
         </figure>
-        <div class="about-text">
-          <p>I'm Iranian Canadian, born and raised in Toronto. Soccer was my whole world growing up, and in 2023 my team won the U18 Ontario Cup. <a href="https://www.youtube.com/watch?v=MBKWG-mtpjo&t=2190s" target="_blank" rel="noopener" class="inline-link">The full game is on YouTube</a> if you want to watch. Pro didn't end up being the path, but the love for the game never went anywhere. These days I'm studying Data Science at Wilfrid Laurier University, and when I'm not at the laptop you'll usually catch me eating Persian food. Ghormeh sabzi is the answer to most questions. If you haven't tried it, you should.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="view" id="about">
+    <div class="view-header">
+      <span class="view-num">02 / About</span>
+      <h2 class="view-title">A bit about <span class="accent">me</span></h2>
+    </div>
+    <div class="about-layout">
+      <figure class="frame about-photo">
+        <img src="images/about%20soccer.jpeg" alt="Shervin playing soccer" onerror="this.parentElement.classList.add('empty')" />
+      </figure>
+      <div class="about-text">
+        <p>I'm Iranian Canadian, born and raised in Toronto. Soccer was my whole world growing up, and in 2023 my team won the U18 Ontario Cup. <a href="https://www.youtube.com/watch?v=MBKWG-mtpjo&t=2190s" target="_blank" rel="noopener" class="inline-link">The full game is on YouTube</a> if you want to watch. Pro didn't end up being the path, but the love for the game never went anywhere. These days I'm studying Data Science at Wilfrid Laurier University, and when I'm not at the laptop you'll usually catch me eating Persian food. Ghormeh sabzi is the answer to most questions. If you haven't tried it, you should.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="view" id="experience">
+    <div class="view-header">
+      <span class="view-num">03 / Experience</span>
+      <h2 class="view-title">Where I've <span class="accent">worked</span></h2>
+    </div>
+    <div class="exp-grid">
+      <article class="exp-card">
+        <div class="exp-logo">
+          <img src="images/logos/Sun%20Life.png" alt="Sun Life" onerror="this.parentElement.classList.add('empty')" />
+        </div>
+        <h3 class="exp-role">Student, Data Scientist</h3>
+        <p class="exp-company">Sun Life</p>
+        <p class="exp-meta">May 2026 → Present · Toronto, ON</p>
+        <p class="exp-notes">Add a sentence or two about what you're working on at Sun Life here.</p>
+      </article>
+      <article class="exp-card">
+        <div class="exp-logo">
+          <img src="images/logos/Union%20Dome.png" alt="Union Dome" onerror="this.parentElement.classList.add('empty')" />
+        </div>
+        <h3 class="exp-role">Data Analyst Intern</h3>
+        <p class="exp-company">Union Dome</p>
+        <p class="exp-meta">May 2025 → Sep 2025 · Toronto, ON</p>
+        <p class="exp-notes">Add a sentence or two about what you did at Union Dome here.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="view" id="projects">
+    <div class="view-header">
+      <span class="view-num">04 / Projects</span>
+      <h2 class="view-title">Things I've <span class="accent">built</span></h2>
+    </div>
+    <div class="proj-grid">
+      <article class="proj-card">
+        <figure class="frame proj-media">
+          <img src="images/projects/nettrace.jpg" alt="" onerror="this.parentElement.classList.add('empty')" />
+        </figure>
+        <span class="proj-tag">Graph ML</span>
+        <h3>NetTrace</h3>
+        <p>A fraud detection system that looks at how money moves across networks of accounts. Catches coordinated activity that single transaction models miss.</p>
+        <a href="https://github.com/shervin31/NetTrace" target="_blank" rel="noopener">View on GitHub →</a>
+      </article>
+      <article class="proj-card">
+        <figure class="frame proj-media">
+          <img src="images/projects/customer-conversion.jpg" alt="" onerror="this.parentElement.classList.add('empty')" />
+        </figure>
+        <span class="proj-tag">ML Pipeline</span>
+        <h3>Customer Conversion Predictor</h3>
+        <p>A full XGBoost pipeline that predicts term deposit subscriptions. Hits 82.8% accuracy and 90.4% ROC AUC.</p>
+        <a href="https://github.com/shervin31/Customer-Conversion-Predictor" target="_blank" rel="noopener">View on GitHub →</a>
+      </article>
+      <article class="proj-card">
+        <figure class="frame proj-media">
+          <img src="images/projects/rag-chatbot.jpg" alt="" onerror="this.parentElement.classList.add('empty')" />
+        </figure>
+        <span class="proj-tag">LLMs / RAG</span>
+        <h3>RAG Chatbot</h3>
+        <p>Document Q&amp;A using LangChain, OpenAI, and HuggingFace embeddings. Shows the source context behind every answer.</p>
+        <a href="https://github.com/shervin31/RAG-Powered-Chatbot" target="_blank" rel="noopener">View on GitHub →</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- HACKATHONS -->
+  <section class="view" id="hackathons">
+    <div class="view-header">
+      <span class="view-num">05 / Hackathons</span>
+      <h2 class="view-title">A few <span class="accent">wins</span></h2>
+    </div>
+    <div class="awards-grid">
+      <article class="award-card">
+        <figure class="frame award-photo">
+          <img src="images/awards/Datahon%20Picture.png" alt="" onerror="this.parentElement.classList.add('empty')" />
+        </figure>
+        <div class="award-info">
+          <span class="award-trophy">🏆 Biggest Comeback</span>
+          <h3>Data Minds Challenge</h3>
+          <p class="award-event">Laurier Analytics Society · Sun Life</p>
+          <p>Built NetTrace under pressure. Walked into finals with zero expectations and walked out with the win.</p>
+        </div>
+      </article>
+      <article class="award-card">
+        <figure class="frame award-photo">
+          <img src="images/awards/Hack%20Canada%20Photo.png" alt="" onerror="this.parentElement.classList.add('empty')" />
+        </figure>
+        <div class="award-info">
+          <span class="award-trophy">⭐ Top 8 of 300+ Teams</span>
+          <h3>Hack Canada</h3>
+          <p class="award-event">36 hour Hackathon · 800+ Hackers</p>
+          <p>Built YUTH, a platform helping young Canadians navigate taxes, benefits, and education.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- OFF THE CLOCK -->
+  <section class="view" id="beyond">
+    <div class="view-header">
+      <span class="view-num">06 / Off the Clock</span>
+      <h2 class="view-title">When I'm <span class="accent">not coding</span></h2>
+    </div>
+    <div class="beyond-layout">
+      <div class="beyond-cards">
+        <div class="beyond-item">
+          <span class="icon">✈️</span>
+          <h3>Travel</h3>
+          <p>I collect random facts from new places like other people collect fridge magnets.</p>
+        </div>
+        <div class="beyond-item">
+          <span class="icon">⚽</span>
+          <h3>Soccer</h3>
+          <p>Strictly a fan now, strictly from the couch.</p>
+        </div>
+        <div class="beyond-item">
+          <span class="icon">🐱</span>
+          <h3>My Cat</h3>
+          <p>Technically I'm the owner. In practice, I'm the staff.</p>
+        </div>
+        <div class="beyond-item">
+          <span class="icon">📚</span>
+          <h3>Always Learning</h3>
+          <p>I keep a running "I'll learn this soon" list that grows faster than I can keep up.</p>
         </div>
       </div>
-    </section>
+      <div class="beyond-photos">
+        <figure class="frame"><img src="images/personal/photo%201.JPG" alt="" onerror="this.parentElement.classList.add('empty')" /></figure>
+        <figure class="frame"><img src="images/personal/photo%202.JPG" alt="" onerror="this.parentElement.classList.add('empty')" /></figure>
+        <figure class="frame"><img src="images/personal/photo%203.JPG" alt="" onerror="this.parentElement.classList.add('empty')" /></figure>
+      </div>
+    </div>
+  </section>
 
-    <section class="view" id="experience">
-      <div class="view-header">
-        <span class="view-num">03 / Experience</span>
-        <h2 class="view-title">Where I've <span class="accent">worked</span></h2>
-      </div>
-      <div class="exp-grid">
-        <article class="exp-card">
-          <div class="exp-logo">
-            <img src="images/logos/Sun%20Life.png" alt="Sun Life" onerror="this.parentElement.classList.add('empty')" />
-          </div>
-          <h3 class="exp-role">Student, Data Scientist</h3>
-          <p class="exp-company">Sun Life</p>
-          <p class="exp-meta">May 2026 → Present · Toronto, ON</p>
-          <p class="exp-notes">Add a sentence or two about what you're working on at Sun Life here.</p>
-        </article>
-        <article class="exp-card">
-          <div class="exp-logo">
-            <img src="images/logos/Union%20Dome.png" alt="Union Dome" onerror="this.parentElement.classList.add('empty')" />
-          </div>
-          <h3 class="exp-role">Data Analyst Intern</h3>
-          <p class="exp-company">Union Dome</p>
-          <p class="exp-meta">May 2025 → Sep 2025 · Toronto, ON</p>
-          <p class="exp-notes">Add a sentence or two about what you did at Union Dome here.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="view" id="projects">
-      <div class="view-header">
-        <span class="view-num">04 / Projects</span>
-        <h2 class="view-title">Things I've <span class="accent">built</span></h2>
-      </div>
-      <div class="proj-grid">
-        <article class="proj-card">
-          <figure class="frame proj-media">
-            <img src="images/projects/nettrace.jpg" alt="" onerror="this.parentElement.classList.add('empty')" />
-          </figure>
-          <span class="proj-tag">Graph ML</span>
-          <h3>NetTrace</h3>
-          <p>A fraud detection system that looks at how money moves across networks of accounts. Catches coordinated activity that single transaction models miss.</p>
-          <a href="https://github.com/shervin31/NetTrace" target="_blank" rel="noopener">View on GitHub →</a>
-        </article>
-        <article class="proj-card">
-          <figure class="frame proj-media">
-            <img src="images/projects/customer-conversion.jpg" alt="" onerror="this.parentElement.classList.add('empty')" />
-          </figure>
-          <span class="proj-tag">ML Pipeline</span>
-          <h3>Customer Conversion Predictor</h3>
-          <p>A full XGBoost pipeline that predicts term deposit subscriptions. Hits 82.8% accuracy and 90.4% ROC AUC.</p>
-          <a href="https://github.com/shervin31/Customer-Conversion-Predictor" target="_blank" rel="noopener">View on GitHub →</a>
-        </article>
-        <article class="proj-card">
-          <figure class="frame proj-media">
-            <img src="images/projects/rag-chatbot.jpg" alt="" onerror="this.parentElement.classList.add('empty')" />
-          </figure>
-          <span class="proj-tag">LLMs / RAG</span>
-          <h3>RAG Chatbot</h3>
-          <p>Document Q&amp;A using LangChain, OpenAI, and HuggingFace embeddings. Shows the source context behind every answer.</p>
-          <a href="https://github.com/shervin31/RAG-Powered-Chatbot" target="_blank" rel="noopener">View on GitHub →</a>
-        </article>
-      </div>
-    </section>
-
-    <section class="view" id="hackathons">
-      <div class="view-header">
-        <span class="view-num">05 / Hackathons</span>
-        <h2 class="view-title">A few <span class="accent">wins</span></h2>
-      </div>
-      <div class="awards-grid">
-        <article class="award-card">
-          <figure class="frame award-photo">
-            <img src="images/awards/Datahon%20Picture.png" alt="" onerror="this.parentElement.classList.add('empty')" />
-          </figure>
-          <div class="award-info">
-            <span class="award-trophy">🏆 Biggest Comeback</span>
-            <h3>Data Minds Challenge</h3>
-            <p class="award-event">Laurier Analytics Society · Sun Life</p>
-            <p>Built NetTrace under pressure. Walked into finals with zero expectations and walked out with the win.</p>
-          </div>
-        </article>
-        <article class="award-card">
-          <figure class="frame award-photo">
-            <img src="images/awards/Hack%20Canada%20Photo.png" alt="" onerror="this.parentElement.classList.add('empty')" />
-          </figure>
-          <div class="award-info">
-            <span class="award-trophy">⭐ Top 8 of 300+ Teams</span>
-            <h3>Hack Canada</h3>
-            <p class="award-event">36 hour Hackathon · 800+ Hackers</p>
-            <p>Built YUTH, a platform helping young Canadians navigate taxes, benefits, and education.</p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="view" id="beyond">
-      <div class="view-header">
-        <span class="view-num">06 / Off the Clock</span>
-        <h2 class="view-title">When I'm <span class="accent">not coding</span></h2>
-      </div>
-      <div class="beyond-layout">
-        <div class="beyond-cards">
-          <div class="beyond-item">
-            <span class="icon">✈️</span>
-            <h3>Travel</h3>
-            <p>I collect random facts from new places like other people collect fridge magnets.</p>
-          </div>
-          <div class="beyond-item">
-            <span class="icon">⚽</span>
-            <h3>Soccer</h3>
-            <p>Strictly a fan now, strictly from the couch.</p>
-          </div>
-          <div class="beyond-item">
-            <span class="icon">🐱</span>
-            <h3>My Cat</h3>
-            <p>Technically I'm the owner. In practice, I'm the staff.</p>
-          </div>
-          <div class="beyond-item">
-            <span class="icon">📚</span>
-            <h3>Always Learning</h3>
-            <p>I keep a running "I'll learn this soon" list that grows faster than I can keep up.</p>
-          </div>
-        </div>
-        <div class="beyond-photos">
-          <figure class="frame"><img src="images/personal/photo%201.JPG" alt="" onerror="this.parentElement.classList.add('empty')" /></figure>
-          <figure class="frame"><img src="images/personal/photo%202.JPG" alt="" onerror="this.parentElement.classList.add('empty')" /></figure>
-          <figure class="frame"><img src="images/personal/photo%203.JPG" alt="" onerror="this.parentElement.classList.add('empty')" /></figure>
-        </div>
-      </div>
-    </section>
-
-    <section class="view" id="contact">
-      <div class="contact-inner">
-        <span class="view-num">07 / Contact</span>
-        <h2 class="contact-title">Let's <span class="accent">talk</span>.</h2>
-        <p class="contact-sub">Always up for a conversation about ML, analytics, soccer, or where to go on your next trip.</p>
-        <a href="mailto:shervin.zare2005@gmail.com" class="contact-email">shervin.zare2005@gmail.com</a>
-        <ul class="contact-links">
-          <li><a href="resume/Shervn_Zare_Resume.pdf" download>Resume ↓</a></li>
-          <li><a href="https://www.linkedin.com/in/shervin-zare" target="_blank" rel="noopener">LinkedIn ↗</a></li>
-          <li><a href="https://github.com/shervin31" target="_blank" rel="noopener">GitHub ↗</a></li>
-          <li><a href="https://x.com/YOUR_X_HANDLE" target="_blank" rel="noopener">X / Twitter ↗</a></li>
-        </ul>
-      </div>
-    </section>
-
-  </main>
+  <!-- CONTACT -->
+  <section class="view" id="contact">
+    <div class="contact-inner">
+      <span class="view-num">07 / Contact</span>
+      <h2 class="contact-title">Let's <span class="accent">talk</span>.</h2>
+      <p class="contact-sub">Always up for a conversation about ML, analytics, soccer, or where to go on your next trip.</p>
+      <a href="mailto:shervin.zare2005@gmail.com" class="contact-email">shervin.zare2005@gmail.com</a>
+      <ul class="contact-links">
+        <li><a href="resume/Shervn_Zare_Resume.pdf" download>Resume ↓</a></li>
+        <li><a href="https://www.linkedin.com/in/shervin-zare" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+        <li><a href="https://github.com/shervin31" target="_blank" rel="noopener">GitHub ↗</a></li>
+        <li><a href="https://x.com/YOUR_X_HANDLE" target="_blank" rel="noopener">X / Twitter ↗</a></li>
+      </ul>
+    </div>
+  </section>
 
   <nav class="tabbar">
     <button class="tab active" data-target="home">Home</button>
@@ -656,6 +575,7 @@
       function switchTo(id) {
         document.querySelectorAll('.view').forEach(function(v) { v.classList.toggle('active', v.id === id); });
         document.querySelectorAll('.tab').forEach(function(b) { b.classList.toggle('active', b.dataset.target === id); });
+        window.scrollTo(0, 0);
       }
       document.addEventListener('click', function(e) {
         var t = e.target.closest('[data-target]');
