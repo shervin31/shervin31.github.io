@@ -1,8 +1,6 @@
 (() => {
   'use strict';
-
-  const order = ['home', 'about', 'experience', 'projects', 'hackathons', 'beyond', 'contact'];
-
+  const order = ['home','about','experience','projects','hackathons','contact'];
   function switchTo(targetId) {
     document.querySelectorAll('.view').forEach(function(v) {
       if (v.id === targetId) v.classList.add('active');
@@ -13,7 +11,6 @@
       else btn.classList.remove('active');
     });
   }
-
   document.addEventListener('click', function(e) {
     var trigger = e.target.closest('[data-target]');
     if (trigger) {
@@ -22,7 +19,6 @@
       if (target) switchTo(target);
     }
   });
-
   document.addEventListener('keydown', function(e) {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
     var current = document.querySelector('.view.active');
