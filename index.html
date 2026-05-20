@@ -259,41 +259,7 @@
     .hack-event { font-family:var(--font-m); font-size:.78rem; color:var(--fg-dim); text-transform:uppercase; letter-spacing:.06em; margin-bottom:.3rem; }
     .hack-info p:last-child { color:var(--fg-muted); font-size:.95rem; line-height:1.65; }
 
-    /* PHOTO DUMP */
-    .photo-dump-grid {
-      display:grid;
-      grid-template-columns:repeat(3, 1fr);
-      gap:1.25rem;
-      width:100%;
-    }
-    .dump-photo {
-      overflow:hidden; position:relative;
-      border-radius:14px; border:1px solid var(--border);
-      background:var(--bg-card);
-    }
-    .dump-photo:first-child {
-      grid-column:1 / -1;
-      aspect-ratio:21/8;
-    }
-    .dump-photo:not(:first-child) { aspect-ratio:3/4; }
-    .dump-photo img {
-      width:100%; height:100%; object-fit:cover; display:block;
-      transition:transform .55s var(--ease);
-    }
-    .dump-photo:hover img { transform:scale(1.04); }
-    .dump-photo.empty {
-      display:flex; align-items:center; justify-content:center;
-      background:linear-gradient(135deg, var(--bg-card), var(--bg-elev));
-    }
-    .dump-photo.empty::before {
-      content:'Add photo here'; font-family:var(--font-m);
-      font-size:.75rem; letter-spacing:.1em;
-      color:var(--fg-dim); text-transform:uppercase; z-index:1;
-    }
-    .dump-photo.empty::after {
-      content:''; position:absolute; inset:1rem;
-      border:1px dashed var(--border-light); border-radius:8px;
-    }
+    
 
     /* CONTACT */
     .contact-wrap {
